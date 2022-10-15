@@ -1,0 +1,94 @@
+Implementarea temei mi-a luat extrem de mult. Din cauza neclaritatilor din
+cerinta, mi-a luat cam o saptamana sa inteleg ce am de facut, cum ar trebui
+sa impementez si cum se foloseste valgrind-ul pentru a verifica daca am alocat
+bine, daca am eliberat memoria bine si daca am lucrat corect.
+
+Primul task l-am terminat intr-o saptamana si cateva zile.
+Am creat fisierele program.c si program.h in care am implementat functionalitatea
+comuna taskurilor. In program.h am declarat antetele functiilor declarate in program.c
+si structura cu care se retin datele fiecarui site pentru taskurile 1, 2, 3, 4 si 5.
+In program.c am scris functia de swap pentru interschimbarea a doua elemente de tipul
+structurii declarate, si functia de sortare generala folosita in taskurile 2, 3 si 5.
+In task1.c am alocat dinamic un vector de tipul structurii declarate, de marime 3,
+care este realocat cu inca 3 de fiecare data cand se citesc mai multe site-uri
+decat se pot retine in vector. Am deschis fisierul "master.txt" si am inceput sa
+citesc, pe rand, fisierele pe care urmeaza sa le deschid. Pentru fiecare linie
+citita, am deschis fisierul cu numele stringului respectiv, apoi am prelucrat
+continutul in felul urmator: am citit URL-ul site-ului, lungimea vectorului
+alocat dinamic ce reprezinta codul, numarul de accesari si checksum-ul. Am alocat
+dinamic vectorul precizat anterior, iar apoi am citit codul in el. Am prelucrat
+codul ca sa obtin titlul exact si culorile folosite pentru scris si background.
+Pentru titlu, am folosit functia strstr ca sa aflu cate litere are titlul, apoi
+am inceput sa retin caracterele in stringul v[z].titlu, unde v reprezinta vectorul
+in care retin datele site-urilor, iar z, pozitia site-ului in vector. Culorile
+le-am retinut cu ajutorul enumerarilor, pe care le folosesc mai tarziu la task5.
+Am afisat datele conform cerintei, am inchis fisierele dupa ce nu am mai lucrat
+cu ele si am eliberat memoria (ceea ce am facut la toate taskurile).
+
+Al doilea task l-am terminat intr-o zi
+Am scris in program.c functiile pentru interschimbare si sortarea generala
+folosita si la taskurile 3 si 5, o sortare prin interschimbare. Apoi am scris
+in task2.c codul din task1.c pentru a extrage datele in structura si functia
+particulara folosita pentru sortarea ceruta in enunt. Pentru a compara dupa
+continut, am extras sirurile care incep de la continut. Este irelevant ce se
+afla dupa ce se termina continutul, pentru ca este acelasi lucru dupa toate
+continuturile. In main am citit sirul de la tastatura si l-am "despartit" in
+cuvinte cu strtok, dupa care am pastrat cuvintele intr-un vector de cuvinte
+(matrice de caractere). Pentru fiecare site citit anterior, am parcurs vectorul
+de cuvinte ca sa verific daca macar un cuvant se afla in site. Functia strstr nu
+este de ajuns, trebuie verificat si daca inainte si dupa cuvantul gasit se afla
+spatiu, '<' sau '>' (dupa caz) sau '\n'. Site-urile care respecta acest criteriu
+sunt retinute in alt vector de tip structura care va fi ordonat cu functia de
+sortare scrisa anterior, apoi afisate URL-urile acestora.
+
+Al treilea task l-am terminat intr-o zi
+Rezolvarea este asemanatoare cu cea de la taskul 2. Am scris in task3.c codul
+din task1.c pentru a extrage datele in structura si functia particulara folosit
+pentru sortarea ceruta in enunt. In main am citit sirul de la tastatura si, apoi,
+cu strtok, am extras cuvintele, cuvantul exclus (daca era cazul) si secventa de
+cuvinte (daca era cazul). Pentru fiecare site citit anterior, am parcurs vectorul
+de cuvinte ca sa verific daca acel cuvant care trebuie exclus nu se afla in
+continut si daca macar un cuvant sau secventa de cuvinte se afla in continut.
+Am folosit aceeasi judecata ca la 2 in cautarea cuvintelor, pentru cuvinte si
+cuvantul exclus, trebuie sa verific daca inainte si dupa el se afla spatiu, '<'
+sau '>' (dupa caz) sau '\n'. Site-urile care respecta acest criteriu sunt
+retinute in alt vector de tip structura care va fi ordonat cu functia de sortare
+scrisa anterior, apoi afisate URL-urile acestora.
+
+Al patrulea task l-am terminat intr-o zi
+Am scris in task4.c codul din task1.c pentru a extrage datele in structura, apoi
+am scris functiile pentru rotirea bitilor la dreapta cu k pozitii. Am deschis o
+pagina de paint, am scris numerele in binar si am lucrat cu operatiile pana am
+dedus formula de rotire. Am observat ca (de exemplu pentru rotirea la stanga)
+daca luam doua numere auxiliare, pe unul il shiftam la stanga cu k % 8 pozitii,
+pe al doilea il shiftam la dreapta cu (8 - (k % 8)) pozitii, iar apoi aplicam
+operatia OR pe ele, obtinem numarul cerut. Aceeasi logica se aplica si la rotirea
+la dreapta. Cat timp citeste URL-uri de la tastatura, le cauta printre site-uri
+si decide daca exista sau nu printre cele citite anterior. Daca nu exista, afiseaza
+"Website not found!", altfel ii calculeaza checksum-ul in felul prezentat in enunt.
+Daca este egal cu checksum-ul site-ului cu care se potriveste, atunci scrie
+"Website safe!", altfel "Malicious website! Official key:...".
+
+
+(   Pentru a compila browser.c:
+gcc browser.c program.c -lncurses -o browser   )
+
+Al cincilea task l-am terminat in doua zile
+In prima zi m-am documentat, am scris bazele programului si am inteles, in mare,
+cam ce se intampla cu biblioteca ncurses, iar in a doua zi am lucrat intens si
+am terminat programul.
+Pentru a extrage datele site-urilor, am folosit codul din task1.c. Apoi, am 
+initializat terminalul in modul curses, am afisat numele browser-ului sus, in
+centru, am dat comanda "noecho();" pentru a nu mai aparea pe ecran tastele
+introduse de utilizator de la tastatura. In coltul din stanga-jos apare legenda
+care explica mai bine ce poti face si cand poti face. La apasarea tastei "C", apare 
+search bar-ul, iar apoi utilizatorul poate introduce caractere pana la apasarea
+tastei Enter. Stringul introdus pana atunci este salvat si este cautat printr-o
+cautare simpla sau avansata (cautarea de la taskul 2 sau cautarea de la taskul 3)
+la apasarea tastei "S" sau "A". Mai departe, apare lista site-urilor gasite
+conform cautarii. Utilizatorul se poate muta intre site-uri cu tastele Key_Up
+si Key_Down, iar cu Enter poate selecta site-ul respectiv. Mai departe, va aparea
+continutul site-ului folosind culorile extrase in taskul 1, prin enumerare. Pentru
+a reveni la paginile anterioare, se apasa tasta "B" pana se ajunge la pagina de cautare.
+Acolo, se poate inchide programul prin apasarea tastei "Q".
+
